@@ -1,0 +1,58 @@
+This package contains the implementation of the constraint solver called SINDALOG.
+SINDALOG is a solver for spatial constraints developed at the University of Almeria, Spain
+by Jesus M. Almendros-Jimenez. Please contact to jalmen(at)ual.es for
+more details about the solver. December, 2007.
+
+The solver has been developed under SWI-PROLOG platform and therefore in order
+to be used, SWI-PROLOG is required. You can download SWI-PROLOG from www.swi-prolog.org.
+The solver uses the CHR library developed for SWI-PROLOG.
+
+=================
+Running the solver
+================
+
+1.-Download SWI-PROLOG.
+2.-run SWI-PROLOG (due to memory requirements, we recommend to run SWI-PROLOG with
+the options -G128M -L128M -T128M)
+3.-load the solver: [solver].
+
+=====================
+Release
+=====================
+This directory containts the following files:
+
+-solver.pl: the implementation of the solver.
+-EXAMPLES: including a file called examples_solver.txt with some examples to be tested.
+-DATA SETS: including two directories: CITIES and ROADS. Including two data sets, 
+taken from http://www.rtreeportal.org, of different sizes.
+
+======================
+REMARK
+======================
+The solver has been tested under linux and mac os.
+
+======================
+LOADING DATA SETS
+======================
+
+Data sets can be loaded in main memory by calling:
+
+:-load_points('DATASETS/CITIES/cities_100.txt',List),rtree(List,5,Rtree),assert(data(cities100,Rtree)).
+:-load_segments('DATASETS/CITIES/roads_100.txt',List),rtree(List,5,Rtree),assert(data(roads100,Rtree)).
+
+for different sizes: 100,1000, etc.
+
+Once they have been loaded, you can proceed to running the constraint solver using
+
+:-data(cities100,Rtree),...
+
+for loading from main memory the data sets. For instance:
+
+:-data(cities100,Rtree),rtree([(0,0)],4,Rtree2),pmindist_set(Rtree2,Rtree,P).
+
+computes the set of pairs of spatial objects to the minimum distance.
+
+
+
+
+

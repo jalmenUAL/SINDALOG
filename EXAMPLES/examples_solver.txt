@@ -1,0 +1,88 @@
+eq((1,3),(1,3)).
+eq((1,X),(1,3)).
+eq((1,X),(1,Y)).
+eq((1,X),Y).
+line([(1,2),(10,Y)])=line([(1,2),(10,3)]).
+line([(1,2),(10,Y)])=line([(1,X),(10,3)]).
+in_o((1,6),line([(1,2),(1,9)])).
+
+in_set((1,2),[line([(1,2),(1,9)]),(1,2)]).
+in_set(A,[line([(1,2),(1,9)]),(1,2)]).
+in_o((1,2),A),in_set(A,[line([(1,2),(1,9)]),(1,2)]).
+in_o((1,2),A),in_set(A,[line([(1,2),(1,9)]),(1,8)]).
+in_o((1,2),B),in_set(B,A),union_obj(line([(1,2),(1,9)]),(1,2),A).
+diff_obj(line([(1,2),(1,9)]),(1,2),A).
+mindist(line([(1,2),(1,10)]),line([(3,2),(12,15)]),D).
+
+mindist_set([(1,2),(3,4)],[(1,2),line([(9,10),(15,12)])],D).
+omindist_set([(1,2),(3,4)],[(1,2),line([(9,10),(15,12)])],D).
+pmindist(line([(1,2),(1,10)]),line([(3,2),(12,15)]),D).
+omindist(line([(1,2),(1,10)]),line([(3,2),(12,15)]),D).
+omaxdist(line([(1,2),(1,10)]),line([(3,2),(12,15)]),D).
+pmaxdist(line([(1,2),(1,10)]),line([(3,2),(12,15)]),D).
+
+in_set(A,[(1,4),(4,5)]),in_set(B,[line([(1,4),(1,10)]),(4,5)]),inside(A,B).
+inside_set([(1,4),(4,5)],[line([(1,4),(1,10)]),(4,5)],P).
+in_set(A,B),range_set([(1,2),(9,10)],circle((0,0),3),B).
+in_set(B,A),setpoints_set([(1,2),line([(4,8),(9,10)])],A).
+in_set(A,B),setsegments_set([(1,2),region([(4,8),(9,10),(15,16)])],B).
+in_set(C,[A,(3,4)]),in_set(A,[line([(1,2),(3,4)]),(9,10)]).
+
+
+River = line([(52, 60), (60, 41), (50, 16), (16,24),(0, 28)]), 
+Lake = region( [(64, 38), (62, 35), (60, 36), (58,34), (56, 36), (58, 40), (62, 42)]), 
+in_set(Parts,SegRiver), setsegments(River,SegRiver), 
+cut(Parts,Lake).
+
+
+
+C1 = (16 , 24 ), C2 = (27 , 41 ), C3 = (40 , 28 ), C4 = (50 , 10 ), C5 = (62 , 35 ),
+C6 = (74 , 55 ), T1 = (12 , 16 ), T2 = (23 , 37 ), T3 = (57 , 6 ),
+in_set(Road, [line([C6 , C5 , C3 ]), line([C6 , C3 , C1 , T1 ]), line([C5 , C4 , C1 ]), line([T3 , C4 , C3 ,
+C2 , T2 ]) ]), Lake = region([(64 , 38 ), (62 , 35 ), (60 , 36 ), (58 , 34 ), (56 , 36 ), (58 , 40 ),
+(62 , 42 )]), in_set(Parts,SegRoad), setsegments(Road,SegRoad), inter_obj(Parts,Lake,Touches),
+neighbor(Parts, Lake),in_set(Touch,Touches).
+
+
+C1 = (16 , 24 ), C2 = (27 , 41 ), C3 = (40 , 28 ), C4 = (50 , 10 ), C5 = (62 , 35 ), 
+C6 = (74 , 55 ),
+T1 = (12 , 16 ), T2 = (23 , 37 ), T3 = (57 , 6 ),
+in_set(Road, [line([C6 , C5 , C3 ]), line([C6, C3 , C1 , T1 ]), line([C5 , C4 , C1 ]), line([T3 , C4 , C3 , 
+C2 , T2 ]) ]),River = line([(52, 60), (60, 41), (50, 16), (16,24), (0, 28)]), 
+inter_obj(Road,River,Bridges),in_set(Bridge,Bridges).
+
+
+C1 = (16 , 24 ), C2 = (27 , 41 ), C3 = (40 , 28 ), C4 = (50 , 10 ), C5 = (62 , 35 ), 
+C6 = (74 , 55 ),River = line([(52, 60), (60, 41), (50, 16), (16,24), (0, 28)]),
+in_set(City,[C1 , C2 , C3 , C4 , C5 , C6]), mindist(City, River,D), in_int(D,[0 , 10 ]).
+
+
+C1 = (16 , 24 ), C2 = (27 , 41 ), C3 = (40 , 28 ), C4 = (50 , 10 ), C5 = (62 , 35 ),
+C6 = (74 , 55 ),
+in_set(City,[C1 , C2 , C3 , C4 , C5 , C6]),
+T1 = (12 , 16 ), T2 = (23 , 37 ), T3 = (57 , 6 ),
+range_set([T1 , T2 , T3],circle(City, 8.5),Nearest),
+in_set(Near,Nearest).
+ 
+C1 = (16 , 24 ), C2 = (27 , 41 ), C3 = (40 , 28 ), C4 = (50 , 10 ), C5 = (62 , 35 ), 
+C6 = (74 , 55 ),
+T1 = (12 , 16 ), T2 = (23 , 37 ), T3 = (57 , 6 ),
+pmindist_set([C1 , C2 , C3 , C4 , C5 , C6], [T1 , T2 , T3],Closest),in_pairs(Close,Closest).
+
+ 
+C1 = (16 , 24 ), C2 = (27 , 41 ), C3 = (40 , 28 ), C4 = (50 , 10 ), C5 = (62 , 35 ), 
+C6 = (74 , 55 ),in_set(City,[C1 , C2 , C3 , C4 , C5 , C6]),
+(X , Y ) = City , C3 = (U , V ), in_int(Y, [U , 60 ]). 
+
+
+C1 = (16 , 24 ), C2 = (27 , 41 ), C3 = (40 , 28 ), C4 = (50 , 10 ), C5 = (62 , 35 ), 
+C6 = (74 , 55 ),
+T1 = (12 , 16 ), T2 = (23 , 37 ), T3 = (57 , 6 ),
+in_set(Road, [line([C6 , C5 , C3 ]), line([C6 , C3 , C1 , T1 ]), line([C5 , C4 , C1 ]), line([T3 , C4 , C3 , 
+C2 , T2 ]) ]),River = line([(52, 60), (60, 41), (50, 16), (16,24),(0, 28)]), 
+inter_obj(Road,River,Bridge), in_set(Object,Bridge),nin_set(Object,[C1 , C2 , C3 , C4 , C5 , C6]).
+
+
+
+
+
